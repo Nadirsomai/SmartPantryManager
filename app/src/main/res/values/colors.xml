@@ -2,4 +2,11 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="rose_gold">#B76E79</color>
+    <color name="rose_gold_dark">#75404A</color>
+    <color name="rose_gold_light">#F2D3D0</color>
+    <color name="rose_gold_soft">#FFF3F1</color>
+    <color name="warm_white">#FFFFFE</color>
+    <color name="charcoal">#2F2526</color>
+    <color name="muted_brown">#715E61</color>
 </resources>

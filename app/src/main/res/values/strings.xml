@@ -4,4 +4,12 @@
     <string name="pantry_empty_message">No ingredients added yet.</string>
     <string name="pantry_empty_hint">Add ingredients to start finding recipes.</string>
     <string name="add_ingredient">Add Ingredient</string>
+    <string name="welcome_badge">SMART PANTRY MANAGER</string>
+    <string name="welcome_title">Welcome to\nNadir\'s Pantry</string>
+    <string name="welcome_subtitle">Cook what you have. Waste less.</string>
+    <string name="welcome_chef_description">Illustration of Nadir dressed as a chef</string>
+    <string name="welcome_features">TRACK  &#8226;  MATCH  &#8226;  COOK</string>
+    <string name="welcome_body">Turn the ingredients you already have into meals you will love.</string>
+    <string name="enter_pantry">Enter My Pantry</string>
+    <string name="welcome_footer">Your ingredients. Your recipes. Less waste.</string>
 </resources>
