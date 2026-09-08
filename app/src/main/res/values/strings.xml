@@ -1,15 +1,15 @@
 <resources>
     <string name="app_name">Smart Pantry Manager</string>
     <string name="pantry_title">My Pantry</string>
-    <string name="pantry_empty_message">No ingredients added yet.</string>
-    <string name="pantry_empty_hint">Add ingredients to start finding recipes.</string>
+    <string name="pantry_intro">Everything you have, ready when you are.</string>
+    <string name="pantry_empty_message">Your pantry is empty</string>
+    <string name="pantry_empty_hint">Add your first ingredient to begin.</string>
     <string name="add_ingredient">Add Ingredient</string>
-    <string name="welcome_badge">SMART PANTRY MANAGER</string>
-    <string name="welcome_title">Welcome to\nNadir\'s Pantry</string>
-    <string name="welcome_subtitle">Cook what you have. Waste less.</string>
+    <string name="welcome_wordmark">SMART PANTRY</string>
+    <string name="welcome_title">Smart Pantry\nManager</string>
+    <string name="welcome_subtitle">Welcome, Nadir.</string>
     <string name="welcome_chef_description">Illustration of Nadir dressed as a chef</string>
-    <string name="welcome_features">TRACK  &#8226;  MATCH  &#8226;  COOK</string>
-    <string name="welcome_body">Turn the ingredients you already have into meals you will love.</string>
-    <string name="enter_pantry">Enter My Pantry</string>
-    <string name="welcome_footer">Your ingredients. Your recipes. Less waste.</string>
+    <string name="pantry_chef_description">Illustration of Nadir welcoming users to the pantry</string>
+    <string name="welcome_body">Cook what you have. Waste less.</string>
+    <string name="enter_pantry">Open Pantry</string>
 </resources>
