@@ -2,6 +2,7 @@ package com.example.smartpantrymanager;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -10,13 +11,22 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.core.view.WindowInsetsControllerCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.android.material.button.MaterialButton;
+import com.example.smartpantrymanager.adapter.PantryItemAdapter;
 import com.example.smartpantrymanager.data.PantryDatabaseHelper;
+import com.example.smartpantrymanager.model.PantryItem;
+import com.google.android.material.button.MaterialButton;
+
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
     private PantryDatabaseHelper databaseHelper;
+    private PantryItemAdapter pantryItemAdapter;
+    private RecyclerView pantryList;
+    private View pantryEmptyState;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +46,12 @@ public class MainActivity extends AppCompatActivity {
         databaseHelper = new PantryDatabaseHelper(getApplicationContext());
         databaseHelper.getWritableDatabase();
 
+        pantryList = findViewById(R.id.list_pantry_items);
+        pantryEmptyState = findViewById(R.id.pantry_empty_state);
+        pantryItemAdapter = new PantryItemAdapter();
+        pantryList.setLayoutManager(new LinearLayoutManager(this));
+        pantryList.setAdapter(pantryItemAdapter);
+
         MaterialButton addIngredientButton = findViewById(R.id.button_add_ingredient);
         addIngredientButton.setOnClickListener(view -> {
             Intent addIngredientIntent =
@@ -43,6 +59,21 @@ public class MainActivity extends AppCompatActivity {
             startActivity(addIngredientIntent);
             overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
         });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        displayPantryItems();
+    }
+
+    private void displayPantryItems() {
+        List<PantryItem> pantryItems = databaseHelper.getAllPantryItems();
+        pantryItemAdapter.setPantryItems(pantryItems);
+
+        boolean pantryIsEmpty = pantryItems.isEmpty();
+        pantryEmptyState.setVisibility(pantryIsEmpty ? View.VISIBLE : View.GONE);
+        pantryList.setVisibility(pantryIsEmpty ? View.GONE : View.VISIBLE);
     }
 
     @Override

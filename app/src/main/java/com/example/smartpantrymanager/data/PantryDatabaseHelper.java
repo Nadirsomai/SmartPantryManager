@@ -2,10 +2,14 @@ package com.example.smartpantrymanager.data;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import com.example.smartpantrymanager.model.PantryItem;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class PantryDatabaseHelper extends SQLiteOpenHelper {
 
@@ -41,6 +45,45 @@ public class PantryDatabaseHelper extends SQLiteOpenHelper {
         long newItemId = getWritableDatabase().insert(TABLE_PANTRY_ITEMS, null, values);
         pantryItem.setId(newItemId);
         return newItemId;
+    }
+
+    public List<PantryItem> getAllPantryItems() {
+        List<PantryItem> pantryItems = new ArrayList<>();
+        String[] columns = {
+                COLUMN_ID,
+                COLUMN_NAME,
+                COLUMN_QUANTITY,
+                COLUMN_UNIT,
+                COLUMN_EXPIRY_DATE
+        };
+
+        try (Cursor cursor = getReadableDatabase().query(
+                TABLE_PANTRY_ITEMS,
+                columns,
+                null,
+                null,
+                null,
+                null,
+                COLUMN_NAME + " COLLATE NOCASE ASC")) {
+
+            int idIndex = cursor.getColumnIndexOrThrow(COLUMN_ID);
+            int nameIndex = cursor.getColumnIndexOrThrow(COLUMN_NAME);
+            int quantityIndex = cursor.getColumnIndexOrThrow(COLUMN_QUANTITY);
+            int unitIndex = cursor.getColumnIndexOrThrow(COLUMN_UNIT);
+            int expiryIndex = cursor.getColumnIndexOrThrow(COLUMN_EXPIRY_DATE);
+
+            while (cursor.moveToNext()) {
+                PantryItem pantryItem = new PantryItem(
+                        cursor.getLong(idIndex),
+                        cursor.getString(nameIndex),
+                        cursor.getDouble(quantityIndex),
+                        cursor.getString(unitIndex),
+                        cursor.getString(expiryIndex));
+                pantryItems.add(pantryItem);
+            }
+        }
+
+        return pantryItems;
     }
 
     @Override

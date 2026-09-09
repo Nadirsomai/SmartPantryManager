@@ -5,6 +5,8 @@
     <string name="pantry_empty_message">Your pantry is empty</string>
     <string name="pantry_empty_hint">Add your first ingredient to begin.</string>
     <string name="add_ingredient">Add Ingredient</string>
+    <string name="pantry_item_quantity">%1$s %2$s</string>
+    <string name="pantry_item_expiry">Expires %1$s</string>
     <string name="welcome_wordmark">SMART PANTRY</string>
     <string name="welcome_title">Smart Pantry\nManager</string>
     <string name="welcome_subtitle">Welcome, Nadir.</string>
