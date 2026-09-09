@@ -12,4 +12,32 @@
     <string name="pantry_chef_description">Illustration of Nadir welcoming users to the pantry</string>
     <string name="welcome_body">Cook what you have. Waste less.</string>
     <string name="enter_pantry">Open Pantry</string>
+    <string name="ingredient_wordmark">MY PANTRY</string>
+    <string name="add_ingredient_title">Add Ingredient</string>
+    <string name="add_ingredient_intro">Add what is already in your kitchen.</string>
+    <string name="ingredient_chef_description">Illustration of Nadir presenting an ingredient</string>
+    <string name="ingredient_details_label">INGREDIENT DETAILS</string>
+    <string name="ingredient_details_hint">Keep quantities clear so they can be matched to South African recipes.</string>
+    <string name="ingredient_name_hint">Ingredient name</string>
+    <string name="ingredient_name_example">For example: mutton, mealie meal or curry leaves</string>
+    <string name="ingredient_quantity_hint">Quantity</string>
+    <string name="ingredient_unit_label">Unit</string>
+    <string name="ingredient_expiry_hint">Expiry date</string>
+    <string name="ingredient_expiry_helper">Use DD/MM/YYYY</string>
+    <string name="save_ingredient">Save Ingredient</string>
+
+    <string-array name="pantry_units">
+        <item>Select unit</item>
+        <item>g</item>
+        <item>kg</item>
+        <item>ml</item>
+        <item>L</item>
+        <item>tsp</item>
+        <item>tbsp</item>
+        <item>cup</item>
+        <item>item</item>
+        <item>bunch</item>
+        <item>tin</item>
+        <item>packet</item>
+    </string-array>
 </resources>
