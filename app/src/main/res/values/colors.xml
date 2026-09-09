@@ -10,4 +10,5 @@
     <color name="gold_dark">#725E27</color>
     <color name="warm_white">#F7F3E8</color>
     <color name="muted_text">#AAA59B</color>
+    <color name="error_red">#FFB4AB</color>
 </resources>

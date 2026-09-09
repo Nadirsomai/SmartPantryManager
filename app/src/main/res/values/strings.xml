@@ -25,6 +25,14 @@
     <string name="ingredient_expiry_hint">Expiry date</string>
     <string name="ingredient_expiry_helper">Use DD/MM/YYYY</string>
     <string name="save_ingredient">Save Ingredient</string>
+    <string name="ingredient_name_required">Enter an ingredient name</string>
+    <string name="ingredient_quantity_required">Enter a quantity</string>
+    <string name="ingredient_quantity_positive">Quantity must be greater than zero</string>
+    <string name="ingredient_unit_required">Select a unit</string>
+    <string name="ingredient_expiry_required">Enter an expiry date</string>
+    <string name="ingredient_expiry_invalid">Enter a valid date using DD/MM/YYYY</string>
+    <string name="ingredient_saved">%1$s saved to your pantry</string>
+    <string name="ingredient_save_failed">The ingredient could not be saved</string>
 
     <string-array name="pantry_units">
         <item>Select unit</item>

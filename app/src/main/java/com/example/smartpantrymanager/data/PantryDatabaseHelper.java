@@ -1,8 +1,11 @@
 package com.example.smartpantrymanager.data;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+
+import com.example.smartpantrymanager.model.PantryItem;
 
 public class PantryDatabaseHelper extends SQLiteOpenHelper {
 
@@ -26,6 +29,18 @@ public class PantryDatabaseHelper extends SQLiteOpenHelper {
 
     public PantryDatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
+    }
+
+    public long addPantryItem(PantryItem pantryItem) {
+        ContentValues values = new ContentValues();
+        values.put(COLUMN_NAME, pantryItem.getName());
+        values.put(COLUMN_QUANTITY, pantryItem.getQuantity());
+        values.put(COLUMN_UNIT, pantryItem.getUnit());
+        values.put(COLUMN_EXPIRY_DATE, pantryItem.getExpiryDate());
+
+        long newItemId = getWritableDatabase().insert(TABLE_PANTRY_ITEMS, null, values);
+        pantryItem.setId(newItemId);
+        return newItemId;
     }
 
     @Override
