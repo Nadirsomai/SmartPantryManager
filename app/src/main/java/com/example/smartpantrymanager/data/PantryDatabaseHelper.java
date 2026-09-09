@@ -47,6 +47,47 @@ public class PantryDatabaseHelper extends SQLiteOpenHelper {
         return newItemId;
     }
 
+    public PantryItem getPantryItem(long itemId) {
+        String[] columns = {
+                COLUMN_ID,
+                COLUMN_NAME,
+                COLUMN_QUANTITY,
+                COLUMN_UNIT,
+                COLUMN_EXPIRY_DATE
+        };
+
+        try (Cursor cursor = getReadableDatabase().query(
+                TABLE_PANTRY_ITEMS,
+                columns,
+                COLUMN_ID + " = ?",
+                new String[]{String.valueOf(itemId)},
+                null,
+                null,
+                null)) {
+            if (cursor.moveToFirst()) {
+                return readPantryItem(cursor);
+            }
+        }
+
+        return null;
+    }
+
+    public int updatePantryItem(PantryItem pantryItem) {
+        ContentValues values = createPantryValues(pantryItem);
+        return getWritableDatabase().update(
+                TABLE_PANTRY_ITEMS,
+                values,
+                COLUMN_ID + " = ?",
+                new String[]{String.valueOf(pantryItem.getId())});
+    }
+
+    public int deletePantryItem(long itemId) {
+        return getWritableDatabase().delete(
+                TABLE_PANTRY_ITEMS,
+                COLUMN_ID + " = ?",
+                new String[]{String.valueOf(itemId)});
+    }
+
     public List<PantryItem> getAllPantryItems() {
         List<PantryItem> pantryItems = new ArrayList<>();
         String[] columns = {
@@ -73,17 +114,34 @@ public class PantryDatabaseHelper extends SQLiteOpenHelper {
             int expiryIndex = cursor.getColumnIndexOrThrow(COLUMN_EXPIRY_DATE);
 
             while (cursor.moveToNext()) {
-                PantryItem pantryItem = new PantryItem(
+                pantryItems.add(new PantryItem(
                         cursor.getLong(idIndex),
                         cursor.getString(nameIndex),
                         cursor.getDouble(quantityIndex),
                         cursor.getString(unitIndex),
-                        cursor.getString(expiryIndex));
-                pantryItems.add(pantryItem);
+                        cursor.getString(expiryIndex)));
             }
         }
 
         return pantryItems;
+    }
+
+    private ContentValues createPantryValues(PantryItem pantryItem) {
+        ContentValues values = new ContentValues();
+        values.put(COLUMN_NAME, pantryItem.getName());
+        values.put(COLUMN_QUANTITY, pantryItem.getQuantity());
+        values.put(COLUMN_UNIT, pantryItem.getUnit());
+        values.put(COLUMN_EXPIRY_DATE, pantryItem.getExpiryDate());
+        return values;
+    }
+
+    private PantryItem readPantryItem(Cursor cursor) {
+        return new PantryItem(
+                cursor.getLong(cursor.getColumnIndexOrThrow(COLUMN_ID)),
+                cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_NAME)),
+                cursor.getDouble(cursor.getColumnIndexOrThrow(COLUMN_QUANTITY)),
+                cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_UNIT)),
+                cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_EXPIRY_DATE)));
     }
 
     @Override

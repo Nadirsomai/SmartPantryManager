@@ -48,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
 
         pantryList = findViewById(R.id.list_pantry_items);
         pantryEmptyState = findViewById(R.id.pantry_empty_state);
-        pantryItemAdapter = new PantryItemAdapter();
+        pantryItemAdapter = new PantryItemAdapter(this::openIngredientForEditing);
         pantryList.setLayoutManager(new LinearLayoutManager(this));
         pantryList.setAdapter(pantryItemAdapter);
 
@@ -59,6 +59,14 @@ public class MainActivity extends AppCompatActivity {
             startActivity(addIngredientIntent);
             overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
         });
+    }
+
+    private void openIngredientForEditing(PantryItem pantryItem) {
+        Intent editIngredientIntent = new Intent(this, AddIngredientActivity.class);
+        editIngredientIntent.putExtra(AddIngredientActivity.EXTRA_PANTRY_ITEM_ID,
+                pantryItem.getId());
+        startActivity(editIngredientIntent);
+        overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
     }
 
     @Override

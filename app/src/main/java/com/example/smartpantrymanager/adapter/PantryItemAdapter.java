@@ -18,10 +18,16 @@ import java.util.List;
 public class PantryItemAdapter
         extends RecyclerView.Adapter<PantryItemAdapter.PantryItemViewHolder> {
 
+    public interface OnPantryItemClickListener {
+        void onPantryItemClick(PantryItem pantryItem);
+    }
+
     private final List<PantryItem> pantryItems = new ArrayList<>();
     private final NumberFormat quantityFormat = NumberFormat.getNumberInstance();
+    private final OnPantryItemClickListener itemClickListener;
 
-    public PantryItemAdapter() {
+    public PantryItemAdapter(OnPantryItemClickListener itemClickListener) {
+        this.itemClickListener = itemClickListener;
         quantityFormat.setMaximumFractionDigits(2);
     }
 
@@ -50,6 +56,7 @@ public class PantryItemAdapter
         holder.expiryText.setText(holder.itemView.getContext().getString(
                 R.string.pantry_item_expiry,
                 pantryItem.getExpiryDate()));
+        holder.itemView.setOnClickListener(view -> itemClickListener.onPantryItemClick(pantryItem));
     }
 
     @Override

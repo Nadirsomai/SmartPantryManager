@@ -8,6 +8,8 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
+
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
@@ -28,6 +30,8 @@ import java.util.Locale;
 
 public class AddIngredientActivity extends AppCompatActivity {
 
+    public static final String EXTRA_PANTRY_ITEM_ID = "pantry_item_id";
+
     private TextInputLayout nameLayout;
     private TextInputLayout quantityLayout;
     private TextInputLayout expiryLayout;
@@ -37,6 +41,7 @@ public class AddIngredientActivity extends AppCompatActivity {
     private Spinner unitInput;
     private TextView unitError;
     private PantryDatabaseHelper databaseHelper;
+    private PantryItem pantryItemBeingEdited;
     private boolean isFormattingExpiryDate;
 
     @Override
@@ -70,6 +75,11 @@ public class AddIngredientActivity extends AppCompatActivity {
 
         databaseHelper = new PantryDatabaseHelper(getApplicationContext());
 
+        long pantryItemId = getIntent().getLongExtra(EXTRA_PANTRY_ITEM_ID, PantryItem.NO_ID);
+        if (pantryItemId != PantryItem.NO_ID) {
+            loadPantryItem(pantryItemId);
+        }
+
         expiryInput.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence text, int start, int count, int after) {
@@ -89,6 +99,36 @@ public class AddIngredientActivity extends AppCompatActivity {
 
         MaterialButton saveIngredientButton = findViewById(R.id.button_save_ingredient);
         saveIngredientButton.setOnClickListener(view -> saveIngredient());
+
+        MaterialButton deleteIngredientButton = findViewById(R.id.button_delete_ingredient);
+        if (pantryItemBeingEdited != null) {
+            saveIngredientButton.setText(R.string.update_ingredient);
+            deleteIngredientButton.setVisibility(View.VISIBLE);
+            deleteIngredientButton.setOnClickListener(view -> confirmDeleteIngredient());
+        }
+    }
+
+    private void loadPantryItem(long pantryItemId) {
+        pantryItemBeingEdited = databaseHelper.getPantryItem(pantryItemId);
+        if (pantryItemBeingEdited == null) {
+            Toast.makeText(this, R.string.ingredient_not_found, Toast.LENGTH_SHORT).show();
+            finish();
+            return;
+        }
+
+        nameInput.setText(pantryItemBeingEdited.getName());
+        quantityInput.setText(String.valueOf(pantryItemBeingEdited.getQuantity()));
+        expiryInput.setText(pantryItemBeingEdited.getExpiryDate());
+        selectUnit(pantryItemBeingEdited.getUnit());
+    }
+
+    private void selectUnit(String unit) {
+        for (int position = 0; position < unitInput.getCount(); position++) {
+            if (unit.equals(unitInput.getItemAtPosition(position).toString())) {
+                unitInput.setSelection(position);
+                return;
+            }
+        }
     }
 
     private void formatExpiryDate(Editable expiryText) {
@@ -170,16 +210,47 @@ public class AddIngredientActivity extends AppCompatActivity {
             return;
         }
 
-        PantryItem pantryItem = new PantryItem(name, quantity, unit, expiryDate);
-        long newItemId = databaseHelper.addPantryItem(pantryItem);
+        PantryItem pantryItem = pantryItemBeingEdited == null
+                ? new PantryItem(name, quantity, unit, expiryDate)
+                : new PantryItem(pantryItemBeingEdited.getId(), name, quantity, unit, expiryDate);
+        boolean saved = pantryItemBeingEdited == null
+                ? databaseHelper.addPantryItem(pantryItem) != -1
+                : databaseHelper.updatePantryItem(pantryItem) == 1;
 
-        if (newItemId == -1) {
+        if (!saved) {
             Toast.makeText(this, R.string.ingredient_save_failed, Toast.LENGTH_LONG).show();
             return;
         }
 
         Toast.makeText(this,
-                getString(R.string.ingredient_saved, pantryItem.getName()),
+                getString(pantryItemBeingEdited == null
+                                ? R.string.ingredient_saved
+                                : R.string.ingredient_updated,
+                        pantryItem.getName()),
+                Toast.LENGTH_SHORT).show();
+        setResult(RESULT_OK);
+        finish();
+    }
+
+    private void confirmDeleteIngredient() {
+        new AlertDialog.Builder(this)
+                .setTitle(R.string.delete_ingredient_title)
+                .setMessage(getString(R.string.delete_ingredient_message,
+                        pantryItemBeingEdited.getName()))
+                .setNegativeButton(R.string.cancel, null)
+                .setPositiveButton(R.string.delete, (dialog, which) -> deleteIngredient())
+                .show();
+    }
+
+    private void deleteIngredient() {
+        int deletedRows = databaseHelper.deletePantryItem(pantryItemBeingEdited.getId());
+        if (deletedRows != 1) {
+            Toast.makeText(this, R.string.ingredient_delete_failed, Toast.LENGTH_LONG).show();
+            return;
+        }
+
+        Toast.makeText(this,
+                getString(R.string.ingredient_deleted, pantryItemBeingEdited.getName()),
                 Toast.LENGTH_SHORT).show();
         setResult(RESULT_OK);
         finish();

@@ -35,6 +35,16 @@
     <string name="ingredient_expiry_invalid">Enter a valid date using DD/MM/YYYY</string>
     <string name="ingredient_saved">%1$s saved to your pantry</string>
     <string name="ingredient_save_failed">The ingredient could not be saved</string>
+    <string name="update_ingredient">Update Ingredient</string>
+    <string name="delete_ingredient">Delete Ingredient</string>
+    <string name="ingredient_not_found">That ingredient could not be found</string>
+    <string name="ingredient_updated">%1$s updated</string>
+    <string name="delete_ingredient_title">Delete ingredient?</string>
+    <string name="delete_ingredient_message">Remove %1$s from your pantry?</string>
+    <string name="cancel">Cancel</string>
+    <string name="delete">Delete</string>
+    <string name="ingredient_deleted">%1$s removed from your pantry</string>
+    <string name="ingredient_delete_failed">The ingredient could not be deleted</string>
 
     <string-array name="pantry_units">
         <item>Select unit</item>
