@@ -7,6 +7,8 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import com.example.smartpantrymanager.model.PantryItem;
+import com.example.smartpantrymanager.model.Recipe;
+import com.example.smartpantrymanager.model.RecipeIngredient;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -150,6 +152,64 @@ public class PantryDatabaseHelper extends SQLiteOpenHelper {
         }
 
         return pantryItems;
+    }
+
+    public List<Recipe> getAllRecipes() {
+        List<Recipe> recipes = new ArrayList<>();
+        String[] columns = {
+                COLUMN_ID,
+                COLUMN_RECIPE_NAME,
+                COLUMN_DESCRIPTION,
+                COLUMN_INSTRUCTIONS
+        };
+
+        try (Cursor cursor = getReadableDatabase().query(
+                TABLE_RECIPES,
+                columns,
+                null,
+                null,
+                null,
+                null,
+                COLUMN_RECIPE_NAME + " COLLATE NOCASE ASC")) {
+            while (cursor.moveToNext()) {
+                recipes.add(new Recipe(
+                        cursor.getLong(cursor.getColumnIndexOrThrow(COLUMN_ID)),
+                        cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_RECIPE_NAME)),
+                        cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_DESCRIPTION)),
+                        cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_INSTRUCTIONS))));
+            }
+        }
+
+        return recipes;
+    }
+
+    public List<RecipeIngredient> getRecipeIngredients(long recipeId) {
+        List<RecipeIngredient> ingredients = new ArrayList<>();
+        String[] columns = {
+                COLUMN_RECIPE_ID,
+                COLUMN_INGREDIENT_NAME,
+                COLUMN_QUANTITY,
+                COLUMN_UNIT
+        };
+
+        try (Cursor cursor = getReadableDatabase().query(
+                TABLE_RECIPE_INGREDIENTS,
+                columns,
+                COLUMN_RECIPE_ID + " = ?",
+                new String[]{String.valueOf(recipeId)},
+                null,
+                null,
+                COLUMN_ID + " ASC")) {
+            while (cursor.moveToNext()) {
+                ingredients.add(new RecipeIngredient(
+                        cursor.getLong(cursor.getColumnIndexOrThrow(COLUMN_RECIPE_ID)),
+                        cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_INGREDIENT_NAME)),
+                        cursor.getDouble(cursor.getColumnIndexOrThrow(COLUMN_QUANTITY)),
+                        cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_UNIT))));
+            }
+        }
+
+        return ingredients;
     }
 
     private ContentValues createPantryValues(PantryItem pantryItem) {

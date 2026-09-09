@@ -1,0 +1,71 @@
+package com.example.smartpantrymanager;
+
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+
+import com.example.smartpantrymanager.logic.RecipeMatcher;
+import com.example.smartpantrymanager.model.PantryItem;
+import com.example.smartpantrymanager.model.RecipeIngredient;
+
+import org.junit.Test;
+
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+
+public class RecipeMatcherTest {
+
+    private static final long RECIPE_ID = 1;
+
+    @Test
+    public void completePantryMatchesRecipe() {
+        List<PantryItem> pantry = Arrays.asList(
+                new PantryItem("Mutton", 600, "g", "31/12/2027"),
+                new PantryItem("Potato", 3, "item", "31/12/2027"));
+        List<RecipeIngredient> recipe = Arrays.asList(
+                new RecipeIngredient(RECIPE_ID, "mutton", 500, "g"),
+                new RecipeIngredient(RECIPE_ID, "potato", 3, "item"));
+
+        assertTrue(RecipeMatcher.canMakeRecipe(pantry, recipe));
+    }
+
+    @Test
+    public void missingIngredientRejectsRecipe() {
+        List<PantryItem> pantry = Collections.singletonList(
+                new PantryItem("Mutton", 600, "g", "31/12/2027"));
+        List<RecipeIngredient> recipe = Arrays.asList(
+                new RecipeIngredient(RECIPE_ID, "mutton", 500, "g"),
+                new RecipeIngredient(RECIPE_ID, "potato", 3, "item"));
+
+        assertFalse(RecipeMatcher.canMakeRecipe(pantry, recipe));
+    }
+
+    @Test
+    public void insufficientQuantityRejectsRecipe() {
+        List<PantryItem> pantry = Collections.singletonList(
+                new PantryItem("Mutton", 250, "g", "31/12/2027"));
+        List<RecipeIngredient> recipe = Collections.singletonList(
+                new RecipeIngredient(RECIPE_ID, "mutton", 500, "g"));
+
+        assertFalse(RecipeMatcher.canMakeRecipe(pantry, recipe));
+    }
+
+    @Test
+    public void duplicatePantryRowsAreCombined() {
+        List<PantryItem> pantry = Arrays.asList(
+                new PantryItem("Sugar Beans", 1, "cup", "31/12/2027"),
+                new PantryItem(" sugar   beans ", 1, "CUP", "31/12/2027"));
+        List<RecipeIngredient> recipe = Collections.singletonList(
+                new RecipeIngredient(RECIPE_ID, "sugar beans", 2, "cup"));
+
+        assertTrue(RecipeMatcher.canMakeRecipe(pantry, recipe));
+    }
+
+    @Test
+    public void emptyRecipeDoesNotMatch() {
+        assertFalse(RecipeMatcher.canMakeRecipe(
+                Collections.singletonList(
+                        new PantryItem("Mutton", 500, "g", "31/12/2027")),
+                Collections.emptyList()));
+    }
+}
