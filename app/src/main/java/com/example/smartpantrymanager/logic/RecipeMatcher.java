@@ -22,18 +22,22 @@ public final class RecipeMatcher {
 
         Map<String, Double> pantryQuantities = new HashMap<>();
         for (PantryItem pantryItem : pantryItems) {
-            String key = ingredientKey(pantryItem.getName(), pantryItem.getUnit());
+            ConvertedQuantity convertedQuantity = convertQuantity(
+                    pantryItem.getQuantity(), pantryItem.getUnit());
+            String key = ingredientKey(pantryItem.getName(), convertedQuantity.unitGroup);
             double currentQuantity = pantryQuantities.containsKey(key)
                     ? pantryQuantities.get(key)
                     : 0;
-            pantryQuantities.put(key, currentQuantity + pantryItem.getQuantity());
+            pantryQuantities.put(key, currentQuantity + convertedQuantity.quantity);
         }
 
         for (RecipeIngredient requiredIngredient : requiredIngredients) {
-            String key = ingredientKey(requiredIngredient.getName(), requiredIngredient.getUnit());
+            ConvertedQuantity requiredQuantity = convertQuantity(
+                    requiredIngredient.getQuantity(), requiredIngredient.getUnit());
+            String key = ingredientKey(requiredIngredient.getName(), requiredQuantity.unitGroup);
             Double availableQuantity = pantryQuantities.get(key);
             if (availableQuantity == null
-                    || availableQuantity < requiredIngredient.getQuantity()) {
+                    || availableQuantity < requiredQuantity.quantity) {
                 return false;
             }
         }
@@ -41,11 +45,43 @@ public final class RecipeMatcher {
         return true;
     }
 
-    private static String ingredientKey(String name, String unit) {
-        return normalise(name) + "|" + normalise(unit);
+    private static String ingredientKey(String name, String unitGroup) {
+        return normalise(name) + "|" + unitGroup;
+    }
+
+    private static ConvertedQuantity convertQuantity(double quantity, String unit) {
+        String normalisedUnit = normalise(unit);
+        switch (normalisedUnit) {
+            case "kg":
+                return new ConvertedQuantity(quantity * 1000, "mass");
+            case "g":
+                return new ConvertedQuantity(quantity, "mass");
+            case "l":
+                return new ConvertedQuantity(quantity * 1000, "volume");
+            case "ml":
+                return new ConvertedQuantity(quantity, "volume");
+            case "cup":
+                return new ConvertedQuantity(quantity * 48, "spoon");
+            case "tbsp":
+                return new ConvertedQuantity(quantity * 3, "spoon");
+            case "tsp":
+                return new ConvertedQuantity(quantity, "spoon");
+            default:
+                return new ConvertedQuantity(quantity, normalisedUnit);
+        }
     }
 
     private static String normalise(String value) {
         return value.trim().replaceAll("\\s+", " ").toLowerCase(Locale.ROOT);
+    }
+
+    private static class ConvertedQuantity {
+        private final double quantity;
+        private final String unitGroup;
+
+        private ConvertedQuantity(double quantity, String unitGroup) {
+            this.quantity = quantity;
+            this.unitGroup = unitGroup;
+        }
     }
 }

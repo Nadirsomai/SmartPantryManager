@@ -68,4 +68,34 @@ public class RecipeMatcherTest {
                         new PantryItem("Mutton", 500, "g", "31/12/2027")),
                 Collections.emptyList()));
     }
+
+    @Test
+    public void kilogramsCanSatisfyGramRequirement() {
+        List<PantryItem> pantry = Collections.singletonList(
+                new PantryItem("Mutton", 1, "kg", "31/12/2027"));
+        List<RecipeIngredient> recipe = Collections.singletonList(
+                new RecipeIngredient(RECIPE_ID, "mutton", 500, "g"));
+
+        assertTrue(RecipeMatcher.canMakeRecipe(pantry, recipe));
+    }
+
+    @Test
+    public void litresCanSatisfyMillilitreRequirement() {
+        List<PantryItem> pantry = Collections.singletonList(
+                new PantryItem("Oil", 1, "L", "31/12/2027"));
+        List<RecipeIngredient> recipe = Collections.singletonList(
+                new RecipeIngredient(RECIPE_ID, "oil", 750, "ml"));
+
+        assertTrue(RecipeMatcher.canMakeRecipe(pantry, recipe));
+    }
+
+    @Test
+    public void incompatibleUnitsStillRejectRecipe() {
+        List<PantryItem> pantry = Collections.singletonList(
+                new PantryItem("Mutton", 2, "item", "31/12/2027"));
+        List<RecipeIngredient> recipe = Collections.singletonList(
+                new RecipeIngredient(RECIPE_ID, "mutton", 500, "g"));
+
+        assertFalse(RecipeMatcher.canMakeRecipe(pantry, recipe));
+    }
 }
