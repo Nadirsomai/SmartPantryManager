@@ -12,6 +12,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SmartPantryManager">
         <activity
+            android:name=".SuggestedRecipesActivity"
+            android:exported="false" />
+        <activity
             android:name=".AddIngredientActivity"
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />

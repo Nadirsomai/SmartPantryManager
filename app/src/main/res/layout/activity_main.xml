@@ -125,11 +125,26 @@
     </LinearLayout>
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/button_add_ingredient"
+        android:id="@+id/button_find_recipes"
+        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
         android:layout_width="match_parent"
         android:layout_height="54dp"
         android:layout_marginStart="24dp"
         android:layout_marginTop="12dp"
+        android:layout_marginEnd="24dp"
+        android:text="@string/find_recipes"
+        android:textAllCaps="false"
+        android:textColor="@color/gold_light"
+        android:textSize="16sp"
+        app:cornerRadius="8dp"
+        app:strokeColor="@color/gold_dark" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/button_add_ingredient"
+        android:layout_width="match_parent"
+        android:layout_height="54dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="24dp"
         android:layout_marginBottom="24dp"
         android:text="@string/add_ingredient"
