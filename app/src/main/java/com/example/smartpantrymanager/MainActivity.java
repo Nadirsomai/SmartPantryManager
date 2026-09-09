@@ -12,8 +12,11 @@ import androidx.core.view.WindowInsetsCompat;
 import androidx.core.view.WindowInsetsControllerCompat;
 
 import com.google.android.material.button.MaterialButton;
+import com.example.smartpantrymanager.data.PantryDatabaseHelper;
 
 public class MainActivity extends AppCompatActivity {
+
+    private PantryDatabaseHelper databaseHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +33,9 @@ public class MainActivity extends AppCompatActivity {
             return insets;
         });
 
+        databaseHelper = new PantryDatabaseHelper(getApplicationContext());
+        databaseHelper.getWritableDatabase();
+
         MaterialButton addIngredientButton = findViewById(R.id.button_add_ingredient);
         addIngredientButton.setOnClickListener(view -> {
             Intent addIngredientIntent =
@@ -37,5 +43,11 @@ public class MainActivity extends AppCompatActivity {
             startActivity(addIngredientIntent);
             overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
         });
+    }
+
+    @Override
+    protected void onDestroy() {
+        databaseHelper.close();
+        super.onDestroy();
     }
 }
