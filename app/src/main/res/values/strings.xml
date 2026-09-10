@@ -7,9 +7,9 @@
     <string name="add_ingredient">Add Ingredient</string>
     <string name="pantry_item_quantity">%1$s %2$s</string>
     <string name="pantry_item_expiry">Expires %1$s</string>
-    <string name="welcome_wordmark">SMART PANTRY</string>
+    <string name="welcome_wordmark">SMART PANTRY MANAGER</string>
     <string name="welcome_title">Smart Pantry\nManager</string>
-    <string name="welcome_subtitle">Welcome, Nadir.</string>
+    <string name="welcome_subtitle">by Nadir Somai</string>
     <string name="welcome_chef_description">Illustration of Nadir dressed as a chef</string>
     <string name="pantry_chef_description">Illustration of Nadir welcoming users to the pantry</string>
     <string name="welcome_body">Cook what you have. Waste less.</string>
