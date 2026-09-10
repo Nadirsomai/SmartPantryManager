@@ -4,7 +4,6 @@
     android:id="@+id/suggested_recipes_root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/app_black"
     android:orientation="vertical"
     tools:context=".SuggestedRecipesActivity">
 
@@ -38,6 +37,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
+            android:accessibilityHeading="true"
+            tools:targetApi="p"
             android:text="@string/suggested_recipes_title"
             android:textColor="@color/warm_white"
             android:textSize="30sp"

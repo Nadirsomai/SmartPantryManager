@@ -5,7 +5,6 @@
     android:id="@+id/recipe_detail_root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/app_black"
     android:fillViewport="true"
     tools:context=".RecipeDetailActivity">
 
@@ -32,6 +31,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
+            android:accessibilityHeading="true"
+            tools:targetApi="p"
             android:textColor="@color/warm_white"
             android:textSize="30sp"
             android:textStyle="bold"

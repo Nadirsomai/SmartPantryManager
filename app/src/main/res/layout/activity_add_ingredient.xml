@@ -5,7 +5,6 @@
     android:id="@+id/add_ingredient_root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/app_black"
     android:fillViewport="true"
     tools:context=".AddIngredientActivity">
 
@@ -43,6 +42,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
+                    android:accessibilityHeading="true"
+                    tools:targetApi="p"
                     android:text="@string/add_ingredient_title"
                     android:textColor="@color/warm_white"
                     android:textSize="30sp"

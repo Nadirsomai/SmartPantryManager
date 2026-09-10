@@ -50,7 +50,6 @@
     <string name="delete">Delete</string>
     <string name="ingredient_deleted">%1$s removed from your pantry</string>
     <string name="ingredient_delete_failed">The ingredient could not be deleted</string>
-    <string name="find_recipes">Find Recipes</string>
     <string name="recipe_wordmark">SOUTH AFRICAN KITCHEN</string>
     <string name="suggested_recipes_title">Suggested Recipes</string>
     <string name="no_recipe_matches">No complete matches yet</string>

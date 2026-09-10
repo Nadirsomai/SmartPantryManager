@@ -37,9 +37,15 @@ public class PantryItemAdapter
     }
 
     public void setPantryItems(List<PantryItem> updatedItems) {
+        int previousItemCount = pantryItems.size();
         pantryItems.clear();
+        if (previousItemCount > 0) {
+            notifyItemRangeRemoved(0, previousItemCount);
+        }
         pantryItems.addAll(updatedItems);
-        notifyDataSetChanged();
+        if (!updatedItems.isEmpty()) {
+            notifyItemRangeInserted(0, updatedItems.size());
+        }
     }
 
     public void setExpiryWarningSettings(boolean enabled, int warningDays) {

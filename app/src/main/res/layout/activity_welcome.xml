@@ -38,6 +38,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="26dp"
+            android:accessibilityHeading="true"
+            tools:targetApi="p"
             android:fontFamily="sans-serif"
             android:gravity="center"
             android:lineSpacingExtra="2dp"
