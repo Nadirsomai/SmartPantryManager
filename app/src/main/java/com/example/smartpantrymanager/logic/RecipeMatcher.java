@@ -46,7 +46,7 @@ public final class RecipeMatcher {
     }
 
     private static String ingredientKey(String name, String unitGroup) {
-        return normalise(name) + "|" + unitGroup;
+        return normaliseIngredientName(name) + "|" + unitGroup;
     }
 
     private static ConvertedQuantity convertQuantity(double quantity, String unit) {
@@ -73,6 +73,28 @@ public final class RecipeMatcher {
 
     private static String normalise(String value) {
         return value.trim().replaceAll("\\s+", " ").toLowerCase(Locale.ROOT);
+    }
+
+    private static String normaliseIngredientName(String ingredientName) {
+        String normalisedName = normalise(ingredientName);
+        int lastSpace = normalisedName.lastIndexOf(' ');
+        String prefix = lastSpace == -1 ? "" : normalisedName.substring(0, lastSpace + 1);
+        String finalWord = lastSpace == -1
+                ? normalisedName
+                : normalisedName.substring(lastSpace + 1);
+
+        if ("leaves".equals(finalWord)) {
+            finalWord = "leaf";
+        } else if (finalWord.endsWith("ies") && finalWord.length() > 3) {
+            finalWord = finalWord.substring(0, finalWord.length() - 3) + "y";
+        } else if (finalWord.endsWith("oes") && finalWord.length() > 3) {
+            finalWord = finalWord.substring(0, finalWord.length() - 2);
+        } else if (finalWord.endsWith("s") && !finalWord.endsWith("ss")
+                && finalWord.length() > 1) {
+            finalWord = finalWord.substring(0, finalWord.length() - 1);
+        }
+
+        return prefix + finalWord;
     }
 
     private static class ConvertedQuantity {

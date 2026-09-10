@@ -98,4 +98,28 @@ public class RecipeMatcherTest {
 
         assertFalse(RecipeMatcher.canMakeRecipe(pantry, recipe));
     }
+
+    @Test
+    public void commonPluralNamesMatchSingularRecipeNames() {
+        List<PantryItem> pantry = Arrays.asList(
+                new PantryItem("Tomatoes", 4, "item", "31/12/2027"),
+                new PantryItem("Potatoes", 3, "item", "31/12/2027"),
+                new PantryItem("Curry Leaves", 1, "bunch", "31/12/2027"));
+        List<RecipeIngredient> recipe = Arrays.asList(
+                new RecipeIngredient(RECIPE_ID, "tomato", 3, "item"),
+                new RecipeIngredient(RECIPE_ID, "potato", 2, "item"),
+                new RecipeIngredient(RECIPE_ID, "curry leaf", 1, "bunch"));
+
+        assertTrue(RecipeMatcher.canMakeRecipe(pantry, recipe));
+    }
+
+    @Test
+    public void pluralMatchingStillChecksQuantity() {
+        List<PantryItem> pantry = Collections.singletonList(
+                new PantryItem("Tomatoes", 1, "item", "31/12/2027"));
+        List<RecipeIngredient> recipe = Collections.singletonList(
+                new RecipeIngredient(RECIPE_ID, "tomato", 2, "item"));
+
+        assertFalse(RecipeMatcher.canMakeRecipe(pantry, recipe));
+    }
 }
