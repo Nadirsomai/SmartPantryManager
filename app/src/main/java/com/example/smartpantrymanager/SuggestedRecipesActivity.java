@@ -1,5 +1,6 @@
 package com.example.smartpantrymanager;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
@@ -67,7 +68,7 @@ public class SuggestedRecipesActivity extends AppCompatActivity {
         TextView resultCount = findViewById(R.id.text_recipe_result_count);
 
         recipeList.setLayoutManager(new LinearLayoutManager(this));
-        recipeList.setAdapter(new RecipeAdapter(matchingRecipes));
+        recipeList.setAdapter(new RecipeAdapter(matchingRecipes, this::openRecipeDetails));
 
         boolean hasMatches = !matchingRecipes.isEmpty();
         recipeList.setVisibility(hasMatches ? View.VISIBLE : View.GONE);
@@ -76,6 +77,13 @@ public class SuggestedRecipesActivity extends AppCompatActivity {
                 R.plurals.recipe_result_count,
                 matchingRecipes.size(),
                 matchingRecipes.size()));
+    }
+
+    private void openRecipeDetails(Recipe recipe) {
+        Intent recipeDetailsIntent = new Intent(this, RecipeDetailActivity.class);
+        recipeDetailsIntent.putExtra(RecipeDetailActivity.EXTRA_RECIPE_ID, recipe.getId());
+        startActivity(recipeDetailsIntent);
+        overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
     }
 
     @Override

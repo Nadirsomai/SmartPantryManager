@@ -183,6 +183,34 @@ public class PantryDatabaseHelper extends SQLiteOpenHelper {
         return recipes;
     }
 
+    public Recipe getRecipe(long recipeId) {
+        String[] columns = {
+                COLUMN_ID,
+                COLUMN_RECIPE_NAME,
+                COLUMN_DESCRIPTION,
+                COLUMN_INSTRUCTIONS
+        };
+
+        try (Cursor cursor = getReadableDatabase().query(
+                TABLE_RECIPES,
+                columns,
+                COLUMN_ID + " = ?",
+                new String[]{String.valueOf(recipeId)},
+                null,
+                null,
+                null)) {
+            if (cursor.moveToFirst()) {
+                return new Recipe(
+                        cursor.getLong(cursor.getColumnIndexOrThrow(COLUMN_ID)),
+                        cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_RECIPE_NAME)),
+                        cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_DESCRIPTION)),
+                        cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_INSTRUCTIONS)));
+            }
+        }
+
+        return null;
+    }
+
     public List<RecipeIngredient> getRecipeIngredients(long recipeId) {
         List<RecipeIngredient> ingredients = new ArrayList<>();
         String[] columns = {

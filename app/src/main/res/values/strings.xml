@@ -50,6 +50,9 @@
     <string name="suggested_recipes_title">Suggested Recipes</string>
     <string name="no_recipe_matches">No complete matches yet</string>
     <string name="no_recipe_matches_hint">Add the missing ingredients and quantities to unlock a recipe.</string>
+    <string name="ingredients_heading">INGREDIENTS</string>
+    <string name="method_heading">METHOD</string>
+    <string name="recipe_not_found">That recipe could not be found</string>
 
     <plurals name="recipe_result_count">
         <item quantity="one">%1$d recipe matches your pantry</item>
