@@ -67,6 +67,13 @@ public class MainActivity extends AppCompatActivity {
             startActivity(suggestedRecipesIntent);
             overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
         });
+
+        MaterialButton settingsButton = findViewById(R.id.button_settings);
+        settingsButton.setOnClickListener(view -> {
+            Intent settingsIntent = new Intent(MainActivity.this, SettingsActivity.class);
+            startActivity(settingsIntent);
+            overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+        });
     }
 
     private void openIngredientForEditing(PantryItem pantryItem) {

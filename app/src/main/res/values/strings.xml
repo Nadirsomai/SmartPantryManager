@@ -53,6 +53,28 @@
     <string name="ingredients_heading">INGREDIENTS</string>
     <string name="method_heading">METHOD</string>
     <string name="recipe_not_found">That recipe could not be found</string>
+    <string name="settings_wordmark">SMART PANTRY MANAGER</string>
+    <string name="settings_title">Settings</string>
+    <string name="settings_intro">Choose when the pantry should warn you about expiring food.</string>
+    <string name="expiry_alerts">Expiry alerts</string>
+    <string name="expiry_alerts_hint">Highlight ingredients before their use-by date.</string>
+    <string name="warning_period">Warn me before expiry</string>
+    <string name="save_settings">Save Settings</string>
+    <string name="settings_saved">Settings saved</string>
+
+    <string-array name="expiry_warning_day_labels">
+        <item>3 days before</item>
+        <item>7 days before</item>
+        <item>14 days before</item>
+        <item>30 days before</item>
+    </string-array>
+
+    <integer-array name="expiry_warning_day_values">
+        <item>3</item>
+        <item>7</item>
+        <item>14</item>
+        <item>30</item>
+    </integer-array>
 
     <plurals name="recipe_result_count">
         <item quantity="one">%1$d recipe matches your pantry</item>

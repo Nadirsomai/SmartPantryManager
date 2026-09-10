@@ -140,11 +140,26 @@
         app:strokeColor="@color/gold_dark" />
 
     <com.google.android.material.button.MaterialButton
+        android:id="@+id/button_settings"
+        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="24dp"
+        android:text="@string/settings_title"
+        android:textAllCaps="false"
+        android:textColor="@color/gold_light"
+        android:textSize="15sp"
+        app:cornerRadius="8dp"
+        app:strokeColor="@color/gold_dark" />
+
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/button_add_ingredient"
         android:layout_width="match_parent"
         android:layout_height="54dp"
         android:layout_marginStart="24dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="6dp"
         android:layout_marginEnd="24dp"
         android:layout_marginBottom="24dp"
         android:text="@string/add_ingredient"
