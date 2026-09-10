@@ -8,6 +8,14 @@
     android:orientation="vertical"
     tools:context=".SuggestedRecipesActivity">
 
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/toolbar_navigation"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:background="@color/surface_black"
+        android:contentDescription="@string/main_navigation_description"
+        tools:menu="@menu/main_navigation_menu" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

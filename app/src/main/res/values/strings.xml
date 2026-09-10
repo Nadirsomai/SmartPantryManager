@@ -61,6 +61,10 @@
     <string name="warning_period">Warn me before expiry</string>
     <string name="save_settings">Save Settings</string>
     <string name="settings_saved">Settings saved</string>
+    <string name="main_navigation_description">Main application navigation</string>
+    <string name="navigation_pantry">Pantry</string>
+    <string name="navigation_recipes">Recipes</string>
+    <string name="navigation_settings">Settings</string>
 
     <string-array name="expiry_warning_day_labels">
         <item>3 days before</item>

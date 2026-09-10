@@ -17,6 +17,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.smartpantrymanager.adapter.PantryItemAdapter;
 import com.example.smartpantrymanager.data.PantryDatabaseHelper;
 import com.example.smartpantrymanager.model.PantryItem;
+import com.example.smartpantrymanager.navigation.NavigationHelper;
+import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.button.MaterialButton;
 
 import java.util.List;
@@ -52,6 +54,9 @@ public class MainActivity extends AppCompatActivity {
         pantryList.setLayoutManager(new LinearLayoutManager(this));
         pantryList.setAdapter(pantryItemAdapter);
 
+        MaterialToolbar navigationToolbar = findViewById(R.id.toolbar_navigation);
+        NavigationHelper.setupToolbar(this, navigationToolbar, R.id.navigation_pantry);
+
         MaterialButton addIngredientButton = findViewById(R.id.button_add_ingredient);
         addIngredientButton.setOnClickListener(view -> {
             Intent addIngredientIntent =
@@ -60,20 +65,6 @@ public class MainActivity extends AppCompatActivity {
             overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
         });
 
-        MaterialButton findRecipesButton = findViewById(R.id.button_find_recipes);
-        findRecipesButton.setOnClickListener(view -> {
-            Intent suggestedRecipesIntent =
-                    new Intent(MainActivity.this, SuggestedRecipesActivity.class);
-            startActivity(suggestedRecipesIntent);
-            overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
-        });
-
-        MaterialButton settingsButton = findViewById(R.id.button_settings);
-        settingsButton.setOnClickListener(view -> {
-            Intent settingsIntent = new Intent(MainActivity.this, SettingsActivity.class);
-            startActivity(settingsIntent);
-            overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
-        });
     }
 
     private void openIngredientForEditing(PantryItem pantryItem) {

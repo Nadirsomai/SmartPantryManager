@@ -20,6 +20,8 @@ import com.example.smartpantrymanager.data.PantryDatabaseHelper;
 import com.example.smartpantrymanager.logic.RecipeMatcher;
 import com.example.smartpantrymanager.model.PantryItem;
 import com.example.smartpantrymanager.model.Recipe;
+import com.example.smartpantrymanager.navigation.NavigationHelper;
+import com.google.android.material.appbar.MaterialToolbar;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -48,6 +50,8 @@ public class SuggestedRecipesActivity extends AppCompatActivity {
                 });
 
         databaseHelper = new PantryDatabaseHelper(getApplicationContext());
+        MaterialToolbar navigationToolbar = findViewById(R.id.toolbar_navigation);
+        NavigationHelper.setupToolbar(this, navigationToolbar, R.id.navigation_recipes);
         displaySuggestedRecipes();
     }
 

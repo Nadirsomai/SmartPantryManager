@@ -14,7 +14,9 @@ import androidx.core.view.WindowInsetsCompat;
 import androidx.core.view.WindowInsetsControllerCompat;
 
 import com.google.android.material.button.MaterialButton;
+import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.switchmaterial.SwitchMaterial;
+import com.example.smartpantrymanager.navigation.NavigationHelper;
 
 public class SettingsActivity extends AppCompatActivity {
 
@@ -50,6 +52,9 @@ public class SettingsActivity extends AppCompatActivity {
         expiryAlertsSwitch = findViewById(R.id.switch_expiry_alerts);
         warningDaysSpinner = findViewById(R.id.spinner_expiry_warning_days);
         preferences = getSharedPreferences(PREFERENCES_NAME, MODE_PRIVATE);
+
+        MaterialToolbar navigationToolbar = findViewById(R.id.toolbar_navigation);
+        NavigationHelper.setupToolbar(this, navigationToolbar, R.id.navigation_settings);
 
         loadSettings();
         expiryAlertsSwitch.setOnCheckedChangeListener((button, checked) ->
