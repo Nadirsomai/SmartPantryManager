@@ -1,6 +1,7 @@
 package com.example.smartpantrymanager;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 
@@ -82,6 +83,14 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void displayPantryItems() {
+        SharedPreferences settings = getSharedPreferences(
+                SettingsActivity.PREFERENCES_NAME, MODE_PRIVATE);
+        pantryItemAdapter.setExpiryWarningSettings(
+                settings.getBoolean(SettingsActivity.KEY_EXPIRY_ALERTS,
+                        SettingsActivity.DEFAULT_EXPIRY_ALERTS),
+                settings.getInt(SettingsActivity.KEY_EXPIRY_WARNING_DAYS,
+                        SettingsActivity.DEFAULT_EXPIRY_WARNING_DAYS));
+
         List<PantryItem> pantryItems = databaseHelper.getAllPantryItems();
         pantryItemAdapter.setPantryItems(pantryItems);
 

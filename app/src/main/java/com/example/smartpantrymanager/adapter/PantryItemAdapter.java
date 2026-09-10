@@ -6,14 +6,17 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.smartpantrymanager.R;
 import com.example.smartpantrymanager.model.PantryItem;
+import com.example.smartpantrymanager.logic.ExpiryChecker;
 
 import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Date;
 
 public class PantryItemAdapter
         extends RecyclerView.Adapter<PantryItemAdapter.PantryItemViewHolder> {
@@ -25,6 +28,8 @@ public class PantryItemAdapter
     private final List<PantryItem> pantryItems = new ArrayList<>();
     private final NumberFormat quantityFormat = NumberFormat.getNumberInstance();
     private final OnPantryItemClickListener itemClickListener;
+    private boolean expiryAlertsEnabled;
+    private int expiryWarningDays;
 
     public PantryItemAdapter(OnPantryItemClickListener itemClickListener) {
         this.itemClickListener = itemClickListener;
@@ -35,6 +40,11 @@ public class PantryItemAdapter
         pantryItems.clear();
         pantryItems.addAll(updatedItems);
         notifyDataSetChanged();
+    }
+
+    public void setExpiryWarningSettings(boolean enabled, int warningDays) {
+        expiryAlertsEnabled = enabled;
+        expiryWarningDays = warningDays;
     }
 
     @NonNull
@@ -53,10 +63,37 @@ public class PantryItemAdapter
                 R.string.pantry_item_quantity,
                 quantityFormat.format(pantryItem.getQuantity()),
                 pantryItem.getUnit()));
-        holder.expiryText.setText(holder.itemView.getContext().getString(
-                R.string.pantry_item_expiry,
-                pantryItem.getExpiryDate()));
+        bindExpiryStatus(holder, pantryItem);
         holder.itemView.setOnClickListener(view -> itemClickListener.onPantryItemClick(pantryItem));
+    }
+
+    private void bindExpiryStatus(PantryItemViewHolder holder, PantryItem pantryItem) {
+        int textColor = R.color.muted_text;
+        String expiryText = holder.itemView.getContext().getString(
+                R.string.pantry_item_expiry, pantryItem.getExpiryDate());
+
+        if (expiryAlertsEnabled) {
+            ExpiryChecker.ExpiryStatus status = ExpiryChecker.getStatus(
+                    pantryItem.getExpiryDate(), expiryWarningDays, new Date());
+            if (status == ExpiryChecker.ExpiryStatus.EXPIRED) {
+                textColor = R.color.error_red;
+                expiryText = holder.itemView.getContext().getString(
+                        R.string.pantry_item_expired, pantryItem.getExpiryDate());
+            } else if (status == ExpiryChecker.ExpiryStatus.EXPIRING_SOON) {
+                long daysLeft = ExpiryChecker.getDaysUntilExpiry(
+                        pantryItem.getExpiryDate(), new Date());
+                textColor = R.color.gold_light;
+                expiryText = holder.itemView.getContext().getResources().getQuantityString(
+                        R.plurals.pantry_item_days_left,
+                        (int) daysLeft,
+                        pantryItem.getExpiryDate(),
+                        daysLeft);
+            }
+        }
+
+        holder.expiryText.setText(expiryText);
+        holder.expiryText.setTextColor(ContextCompat.getColor(
+                holder.itemView.getContext(), textColor));
     }
 
     @Override
