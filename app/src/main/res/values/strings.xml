@@ -23,6 +23,10 @@
     <string name="add_ingredient_title">Add Ingredient</string>
     <string name="add_ingredient_intro">Add what is already in your kitchen.</string>
     <string name="ingredient_chef_description">Illustration of Nadir presenting an ingredient</string>
+    <string name="recipes_chef_description">Illustration of Nadir presenting matched recipes</string>
+    <string name="no_matches_chef_description">Illustration of Nadir considering recipe options</string>
+    <string name="recipe_detail_chef_description">Illustration of Nadir presenting the selected dish</string>
+    <string name="expiry_chef_description">Illustration of Nadir warning about an expiring ingredient</string>
     <string name="ingredient_details_label">INGREDIENT DETAILS</string>
     <string name="ingredient_details_hint">Keep quantities clear so they can be matched to South African recipes.</string>
     <string name="ingredient_name_hint">Ingredient name</string>

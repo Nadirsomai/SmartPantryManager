@@ -48,6 +48,27 @@
             android:textSize="14sp"
             tools:text="A fragrant KwaZulu-Natal curry with tender mutton and potatoes." />
 
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="144dp"
+            android:layout_height="144dp"
+            android:layout_gravity="end"
+            android:layout_marginTop="14dp"
+            app:cardBackgroundColor="@color/surface_black"
+            app:cardCornerRadius="72dp"
+            app:cardElevation="0dp"
+            app:strokeColor="@color/gold_dark"
+            app:strokeWidth="1dp">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:contentDescription="@string/recipe_detail_chef_description"
+                android:padding="5dp"
+                android:scaleType="centerInside"
+                android:src="@drawable/nadir_chef_ingredient" />
+
+        </com.google.android.material.card.MaterialCardView>
+
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"

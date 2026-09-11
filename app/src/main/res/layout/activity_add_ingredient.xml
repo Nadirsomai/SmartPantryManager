@@ -75,7 +75,7 @@
                     android:contentDescription="@string/ingredient_chef_description"
                     android:padding="4dp"
                     android:scaleType="centerInside"
-                    android:src="@drawable/nadir_chef_ingredient" />
+                    android:src="@drawable/nadir_chef_add" />
 
             </com.google.android.material.card.MaterialCardView>
 

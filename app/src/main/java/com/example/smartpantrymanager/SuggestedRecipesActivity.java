@@ -69,6 +69,7 @@ public class SuggestedRecipesActivity extends AppCompatActivity {
 
         RecyclerView recipeList = findViewById(R.id.list_suggested_recipes);
         View emptyState = findViewById(R.id.suggested_recipes_empty_state);
+        View chefPanel = findViewById(R.id.suggested_recipe_chef_panel);
         TextView resultCount = findViewById(R.id.text_recipe_result_count);
 
         recipeList.setLayoutManager(new LinearLayoutManager(this));
@@ -77,6 +78,7 @@ public class SuggestedRecipesActivity extends AppCompatActivity {
         boolean hasMatches = !matchingRecipes.isEmpty();
         recipeList.setVisibility(hasMatches ? View.VISIBLE : View.GONE);
         emptyState.setVisibility(hasMatches ? View.GONE : View.VISIBLE);
+        chefPanel.setVisibility(hasMatches ? View.VISIBLE : View.GONE);
         resultCount.setText(getResources().getQuantityString(
                 R.plurals.recipe_result_count,
                 matchingRecipes.size(),
