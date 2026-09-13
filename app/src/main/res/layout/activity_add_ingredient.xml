@@ -132,6 +132,7 @@
                 android:dropDownVerticalOffset="4dp"
                 android:inputType="textCapWords"
                 android:maxLines="1"
+                android:minHeight="56dp"
                 android:popupBackground="@color/surface_black_light"
                 android:textColor="@color/warm_white"
                 android:textColorHint="@color/muted_text" />
