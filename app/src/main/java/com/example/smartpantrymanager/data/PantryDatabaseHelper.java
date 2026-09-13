@@ -34,6 +34,8 @@ public class PantryDatabaseHelper extends SQLiteOpenHelper {
     public static final String COLUMN_RECIPE_ID = "recipe_id";
     public static final String COLUMN_INGREDIENT_NAME = "ingredient_name";
 
+    // Pantry items are stored separately from recipes. Recipe ingredients use the
+    // recipe ID as a foreign key so each recipe can contain multiple ingredients.
     private static final String CREATE_PANTRY_TABLE =
             "CREATE TABLE " + TABLE_PANTRY_ITEMS + " (" +
                     COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
@@ -277,6 +279,8 @@ public class PantryDatabaseHelper extends SQLiteOpenHelper {
         database.setForeignKeyConstraintsEnabled(true);
     }
 
+    // The recipe collection is added when the database is first created or upgraded.
+    // This gives every user the same starting recipes without requiring manual entry.
     private void createAndSeedRecipeTables(SQLiteDatabase database) {
         database.execSQL(CREATE_RECIPE_TABLE);
         database.execSQL(CREATE_RECIPE_INGREDIENT_TABLE);
@@ -391,6 +395,8 @@ public class PantryDatabaseHelper extends SQLiteOpenHelper {
         recipeValues.put(COLUMN_INSTRUCTIONS, instructions);
         long recipeId = database.insertOrThrow(TABLE_RECIPES, null, recipeValues);
 
+        // Store each required ingredient with the new recipe ID so it can be retrieved
+        // as part of that recipe and removed automatically if the recipe is deleted.
         for (RecipeSeedIngredient ingredient : ingredients) {
             ContentValues ingredientValues = new ContentValues();
             ingredientValues.put(COLUMN_RECIPE_ID, recipeId);

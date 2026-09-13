@@ -20,6 +20,8 @@ public final class RecipeMatcher {
             return false;
         }
 
+        // Combine matching pantry entries after converting their quantities to a common
+        // unit. This handles cases where the same ingredient was added more than once.
         Map<String, Double> pantryQuantities = new HashMap<>();
         for (PantryItem pantryItem : pantryItems) {
             ConvertedQuantity convertedQuantity = convertQuantity(
@@ -31,6 +33,8 @@ public final class RecipeMatcher {
             pantryQuantities.put(key, currentQuantity + convertedQuantity.quantity);
         }
 
+        // A recipe qualifies only when every required ingredient is present in a
+        // compatible unit and the total available quantity is sufficient.
         for (RecipeIngredient requiredIngredient : requiredIngredients) {
             ConvertedQuantity requiredQuantity = convertQuantity(
                     requiredIngredient.getQuantity(), requiredIngredient.getUnit());
@@ -49,6 +53,8 @@ public final class RecipeMatcher {
         return normaliseIngredientName(name) + "|" + unitGroup;
     }
 
+    // Convert compatible measurements to shared base units before comparing them:
+    // grams for mass, millilitres for volume, and teaspoons for spoon measurements.
     private static ConvertedQuantity convertQuantity(double quantity, String unit) {
         String normalisedUnit = normalise(unit);
         switch (normalisedUnit) {
@@ -75,6 +81,8 @@ public final class RecipeMatcher {
         return value.trim().replaceAll("\\s+", " ").toLowerCase(Locale.ROOT);
     }
 
+    // Normalise simple plural forms so everyday variations such as "tomato" and
+    // "tomatoes" are treated as the same ingredient during recipe matching.
     private static String normaliseIngredientName(String ingredientName) {
         String normalisedName = normalise(ingredientName);
         int lastSpace = normalisedName.lastIndexOf(' ');

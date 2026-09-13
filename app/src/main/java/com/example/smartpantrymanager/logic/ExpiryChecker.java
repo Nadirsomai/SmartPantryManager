@@ -26,6 +26,8 @@ public final class ExpiryChecker {
             return ExpiryStatus.INVALID;
         }
 
+        // Compare calendar dates from midnight so the current time of day does not
+        // incorrectly change the number of days remaining.
         long daysUntilExpiry = daysBetween(startOfDay(today), startOfDay(parsedExpiryDate));
         if (daysUntilExpiry < 0) {
             return ExpiryStatus.EXPIRED;
@@ -44,6 +46,7 @@ public final class ExpiryChecker {
         return daysBetween(startOfDay(today), startOfDay(parsedExpiryDate));
     }
 
+    // Strict parsing rejects invalid dates instead of silently correcting them.
     private static Date parseDate(String dateText) {
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.ROOT);
         dateFormat.setLenient(false);
