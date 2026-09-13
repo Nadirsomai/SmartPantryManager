@@ -4,6 +4,8 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -35,7 +37,7 @@ public class AddIngredientActivity extends AppCompatActivity {
     private TextInputLayout nameLayout;
     private TextInputLayout quantityLayout;
     private TextInputLayout expiryLayout;
-    private TextInputEditText nameInput;
+    private AutoCompleteTextView nameInput;
     private TextInputEditText quantityInput;
     private TextInputEditText expiryInput;
     private Spinner unitInput;
@@ -74,6 +76,7 @@ public class AddIngredientActivity extends AppCompatActivity {
         unitError = findViewById(R.id.text_unit_error);
 
         databaseHelper = new PantryDatabaseHelper(getApplicationContext());
+        setUpIngredientSuggestions();
 
         long pantryItemId = getIntent().getLongExtra(EXTRA_PANTRY_ITEM_ID, PantryItem.NO_ID);
         if (pantryItemId != PantryItem.NO_ID) {
@@ -108,6 +111,15 @@ public class AddIngredientActivity extends AppCompatActivity {
         }
     }
 
+    private void setUpIngredientSuggestions() {
+        ArrayAdapter<String> suggestionAdapter = new ArrayAdapter<>(
+                this,
+                R.layout.item_ingredient_suggestion,
+                databaseHelper.getRecipeIngredientNames());
+        nameInput.setAdapter(suggestionAdapter);
+        nameInput.setThreshold(1);
+    }
+
     private void loadPantryItem(long pantryItemId) {
         pantryItemBeingEdited = databaseHelper.getPantryItem(pantryItemId);
         if (pantryItemBeingEdited == null) {
@@ -116,7 +128,7 @@ public class AddIngredientActivity extends AppCompatActivity {
             return;
         }
 
-        nameInput.setText(pantryItemBeingEdited.getName());
+        nameInput.setText(pantryItemBeingEdited.getName(), false);
         quantityInput.setText(String.valueOf(pantryItemBeingEdited.getQuantity()));
         expiryInput.setText(pantryItemBeingEdited.getExpiryDate());
         selectUnit(pantryItemBeingEdited.getUnit());
@@ -271,8 +283,8 @@ public class AddIngredientActivity extends AppCompatActivity {
         }
     }
 
-    private String readText(TextInputEditText input) {
-        Editable text = input.getText();
+    private String readText(TextView input) {
+        CharSequence text = input.getText();
         return text == null ? "" : text.toString().trim();
     }
 

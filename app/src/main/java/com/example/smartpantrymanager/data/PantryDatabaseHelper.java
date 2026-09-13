@@ -242,6 +242,29 @@ public class PantryDatabaseHelper extends SQLiteOpenHelper {
         return ingredients;
     }
 
+    public List<String> getRecipeIngredientNames() {
+        List<String> ingredientNames = new ArrayList<>();
+        String[] columns = {COLUMN_INGREDIENT_NAME};
+
+        try (Cursor cursor = getReadableDatabase().query(
+                true,
+                TABLE_RECIPE_INGREDIENTS,
+                columns,
+                null,
+                null,
+                null,
+                null,
+                COLUMN_INGREDIENT_NAME + " COLLATE NOCASE ASC",
+                null)) {
+            int nameIndex = cursor.getColumnIndexOrThrow(COLUMN_INGREDIENT_NAME);
+            while (cursor.moveToNext()) {
+                ingredientNames.add(cursor.getString(nameIndex));
+            }
+        }
+
+        return ingredientNames;
+    }
+
     private ContentValues createPantryValues(PantryItem pantryItem) {
         ContentValues values = new ContentValues();
         values.put(COLUMN_NAME, pantryItem.getName());

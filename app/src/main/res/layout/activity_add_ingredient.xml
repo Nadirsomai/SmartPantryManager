@@ -124,12 +124,15 @@
             app:helperTextTextColor="@color/muted_text"
             app:hintTextColor="@color/gold_light">
 
-            <com.google.android.material.textfield.TextInputEditText
+            <com.google.android.material.textfield.MaterialAutoCompleteTextView
                 android:id="@+id/input_ingredient_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:completionThreshold="1"
+                android:dropDownVerticalOffset="4dp"
                 android:inputType="textCapWords"
                 android:maxLines="1"
+                android:popupBackground="@color/surface_black_light"
                 android:textColor="@color/warm_white"
                 android:textColorHint="@color/muted_text" />
 

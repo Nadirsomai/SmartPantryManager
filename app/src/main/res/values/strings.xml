@@ -30,7 +30,7 @@
     <string name="ingredient_details_label">INGREDIENT DETAILS</string>
     <string name="ingredient_details_hint">Keep quantities clear so they can be matched to South African recipes.</string>
     <string name="ingredient_name_hint">Ingredient name</string>
-    <string name="ingredient_name_example">For example: mutton, mealie meal or curry leaves</string>
+    <string name="ingredient_name_example">Start typing to choose a recipe ingredient, or enter your own</string>
     <string name="ingredient_quantity_hint">Quantity</string>
     <string name="ingredient_unit_label">Unit</string>
     <string name="ingredient_expiry_hint">Expiry date</string>
