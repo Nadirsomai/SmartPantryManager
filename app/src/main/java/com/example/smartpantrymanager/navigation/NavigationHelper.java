@@ -15,6 +15,11 @@ public final class NavigationHelper {
         // Utility class.
     }
 
+    public static void startActivityWithFade(Activity activity, Intent intent) {
+        activity.startActivity(intent);
+        activity.overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+    }
+
     public static void setupToolbar(Activity activity, MaterialToolbar toolbar,
                                     int currentDestination) {
         toolbar.inflateMenu(R.menu.main_navigation_menu);
@@ -38,8 +43,7 @@ public final class NavigationHelper {
 
             Intent navigationIntent = new Intent(activity, destination);
             navigationIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            activity.startActivity(navigationIntent);
-            activity.overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+            startActivityWithFade(activity, navigationIntent);
             return true;
         });
     }

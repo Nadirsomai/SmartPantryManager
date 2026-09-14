@@ -11,6 +11,8 @@ import androidx.core.view.WindowCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.core.view.WindowInsetsControllerCompat;
 
+import com.example.smartpantrymanager.navigation.NavigationHelper;
+
 public class WelcomeActivity extends AppCompatActivity {
 
     @Override
@@ -31,8 +33,7 @@ public class WelcomeActivity extends AppCompatActivity {
 
         findViewById(R.id.button_enter_pantry).setOnClickListener(view -> {
             Intent pantryIntent = new Intent(WelcomeActivity.this, MainActivity.class);
-            startActivity(pantryIntent);
-            overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+            NavigationHelper.startActivityWithFade(this, pantryIntent);
         });
     }
 }

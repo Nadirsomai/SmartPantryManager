@@ -88,8 +88,7 @@ public class SuggestedRecipesActivity extends AppCompatActivity {
     private void openRecipeDetails(Recipe recipe) {
         Intent recipeDetailsIntent = new Intent(this, RecipeDetailActivity.class);
         recipeDetailsIntent.putExtra(RecipeDetailActivity.EXTRA_RECIPE_ID, recipe.getId());
-        startActivity(recipeDetailsIntent);
-        overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+        NavigationHelper.startActivityWithFade(this, recipeDetailsIntent);
     }
 
     @Override

@@ -62,8 +62,7 @@ public class MainActivity extends AppCompatActivity {
         addIngredientButton.setOnClickListener(view -> {
             Intent addIngredientIntent =
                     new Intent(MainActivity.this, AddIngredientActivity.class);
-            startActivity(addIngredientIntent);
-            overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+            NavigationHelper.startActivityWithFade(this, addIngredientIntent);
         });
 
     }
@@ -72,8 +71,7 @@ public class MainActivity extends AppCompatActivity {
         Intent editIngredientIntent = new Intent(this, AddIngredientActivity.class);
         editIngredientIntent.putExtra(AddIngredientActivity.EXTRA_PANTRY_ITEM_ID,
                 pantryItem.getId());
-        startActivity(editIngredientIntent);
-        overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+        NavigationHelper.startActivityWithFade(this, editIngredientIntent);
     }
 
     @Override
