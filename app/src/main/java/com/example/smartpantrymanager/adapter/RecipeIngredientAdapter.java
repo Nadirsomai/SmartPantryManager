@@ -36,7 +36,8 @@ public class RecipeIngredientAdapter
     @Override
     public void onBindViewHolder(@NonNull IngredientViewHolder holder, int position) {
         RecipeIngredient ingredient = ingredients.get(position);
-        holder.nameText.setText(ingredient.getName());
+        holder.nameText.setText(holder.itemView.getContext().getString(
+                R.string.numbered_recipe_ingredient, position + 1, ingredient.getName()));
         holder.quantityText.setText(holder.itemView.getContext().getString(
                 R.string.pantry_item_quantity,
                 quantityFormat.format(ingredient.getQuantity()),

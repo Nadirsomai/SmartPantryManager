@@ -114,6 +114,26 @@
             android:layout_marginTop="26dp"
             android:fontFamily="sans-serif-medium"
             android:letterSpacing="0.12"
+            android:text="@string/preparation_heading"
+            android:textColor="@color/gold"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/text_recipe_preparation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:lineSpacingExtra="5dp"
+            android:textColor="@color/warm_white"
+            android:textSize="16sp"
+            tools:text="1. Cut the mutton into evenly sized pieces.\n\n2. Peel and cut the potatoes." />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="26dp"
+            android:fontFamily="sans-serif-medium"
+            android:letterSpacing="0.12"
             android:text="@string/method_heading"
             android:textColor="@color/gold"
             android:textSize="12sp" />
@@ -126,7 +146,7 @@
             android:lineSpacingExtra="5dp"
             android:textColor="@color/warm_white"
             android:textSize="16sp"
-            tools:text="Brown the mutton. Fry onion with curry powder, add tomato and simmer." />
+            tools:text="1. Heat the oil in a large pot.\n\n2. Brown the mutton evenly." />
 
     </LinearLayout>
 

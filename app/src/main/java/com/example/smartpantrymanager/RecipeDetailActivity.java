@@ -54,11 +54,13 @@ public class RecipeDetailActivity extends AppCompatActivity {
 
         TextView recipeName = findViewById(R.id.text_recipe_detail_name);
         TextView recipeDescription = findViewById(R.id.text_recipe_detail_description);
+        TextView recipePreparation = findViewById(R.id.text_recipe_preparation);
         TextView recipeInstructions = findViewById(R.id.text_recipe_instructions);
         RecyclerView ingredientList = findViewById(R.id.list_recipe_ingredients);
 
         recipeName.setText(recipe.getName());
         recipeDescription.setText(recipe.getDescription());
+        recipePreparation.setText(recipe.getPreparation());
         recipeInstructions.setText(recipe.getInstructions());
         ingredientList.setLayoutManager(new LinearLayoutManager(this));
         ingredientList.setAdapter(new RecipeIngredientAdapter(
