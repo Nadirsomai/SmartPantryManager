@@ -68,6 +68,14 @@ The project also contains unit tests for:
 - Ingredient-name normalisation.
 - Expired ingredients and upcoming expiry dates.
 
+## GitHub development history
+
+I developed the application in stages and used regular commits to record the features, improvements and fixes made during the project.
+
+- [Smart Pantry Manager repository](https://github.com/Nadirsomai/SmartPantryManager)
+- [View the full commit and push history](https://github.com/Nadirsomai/SmartPantryManager/commits/master/)
+- [My GitHub profile](https://github.com/Nadirsomai)
+
 ## Author
 
 Nadir Somai
