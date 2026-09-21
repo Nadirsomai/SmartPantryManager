@@ -43,6 +43,8 @@ The application was developed in Android Studio using:
 - SharedPreferences for the expiry settings
 - JUnit tests for expiry checks and recipe matching
 
+I chose SQLite because the pantry needs to work offline and keep the user's ingredients after the app is closed. It stores the data directly on the device, so the application does not need a separate server or user account.
+
 The minimum supported Android version is Android 7.0 (API 25).
 
 ## How to run the project
